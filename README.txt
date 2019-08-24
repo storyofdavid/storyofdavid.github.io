@@ -1,5 +1,5 @@
 This is a sample repo - that I set up to teach others how to host a static website for free using github.
-##### Sample website: storyofdavid.github.io
+##### Sample website: https://storyofdavid.github.io
 # Steps on how to create your free website
 
 
