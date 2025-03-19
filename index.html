@@ -3,16 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Sales Funnel</title>
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Digital Products Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
+        /* Updated Custom styles */
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Lighter background */
         }
-        /* Styles for the modal and backdrop */
+        .product-card {
+            background-color: white;
+            border-radius: 0.75rem; /* Rounded corners */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Shadow */
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transition */
+            border: 1px solid #e5e7eb; /* Add a border */
+        }
+        .product-card:hover {
+            transform: translateY(-0.5rem); /* Slight lift on hover */
+            box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15), 0 3px 5px -1px rgba(0, 0, 0, 0.1); /* Increased shadow on hover */
+        }
+        .product-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1e293b; /* Darker heading */
+        }
+        .product-card p {
+            color: #4b5563; /* Slightly darker text */
+            margin-bottom: 1rem;
+            line-height: 1.75; /* Improved line height for readability */
+        }
+        .product-card .price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1d4ed8; /* Highlighted price */
+            margin-bottom: 1.5rem; /* Increased margin */
+            transition: color 0.3s ease; /* Smooth transition for price color */
+        }
+        .product-card:hover .price {
+            color: #2563eb; /* Slightly brighter on hover */
+        }
+        .btn {
+            font-family: 'Inter', sans-serif;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out, transform 0.1s ease;
+            border: none;
+            display: inline-flex; /* Use inline-flex for better alignment */
+            align-items: center;
+            justify-content: center;
+            width: 100%; /* Make button full width of card */
+        }
+        .btn-primary {
+            background-color: #4f46e5; /* Vibrant indigo */
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #6366f1; /* Lighter indigo on hover */
+            transform: scale(1.05); /* Slight scale on hover */
+        }
+        .btn-secondary {
+            background-color: #e0f2fe; /* Light cyan */
+            color: #06b6d4; /* Darker cyan text */
+        }
+        .btn-secondary:hover {
+            background-color: #f0f9ff; /* Even lighter cyan on hover */
+            transform: scale(1.05);
+        }
+
+        .section {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 4rem;
+            color: #1e293b;
+            text-align: center;
+        }
+        .testimonial-card {
+            background-color: #fff;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e7eb;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            display: flex; /* Enable flexbox for vertical alignment */
+            flex-direction: column;
+            justify-content: space-between; /* Push content to the bottom */
+            align-items: flex-start;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-0.25rem);
+            box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15), 0 3px 5px -1px rgba(0, 0, 0, 0.1);
+        }
+        .testimonial-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #10b981; /* Emerald */
+        }
+        .testimonial-card p {
+            color: #6b7280;
+            margin-bottom: 1rem;
+            line-height: 1.75;
+        }
+        .testimonial-card .author {
+            font-style: italic;
+            color: #9ca3af;
+        }
+        .cta-section {
+            text-align: center;
+        }
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #1e293b;
+        }
+        .cta-section p {
+            font-size: 1.25rem;
+            color: #4b5563;
+            margin-bottom: 2rem;
+        }
+        .shop-now-btn {
+            background-color: #8b5cf6; /* Violet */
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 1.25rem;
+            transition: background-color 0.3s ease-in-out, transform 0.1s ease;
+            cursor: pointer;
+            border: none;
+        }
+        .shop-now-btn:hover {
+            background-color: #a855f7; /* Lighter violet on hover */
+            transform: scale(1.05);
+        }
+        .footer {
+            background-color: #1f2937;
+            color: #f9fafb;
+            padding: 1.5rem;
+            text-align: center;
+            border-top-left-radius: 0.75rem;
+            border-top-right-radius: 0.75rem;
+        }
+        .video-container {
+            /* Changed from video-placeholder to video-container */
+            margin-bottom: 2rem;
+            border-radius: 0.75rem;
+            overflow: hidden;  /* Clip the video content */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            position: relative; /* Needed for absolute positioning of controls */
+            width: 640px; /* Reduced width */
+            height: 360px; /* Reduced height, maintaining 16:9 aspect ratio */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .video-container iframe {
+            /* Make the iframe fill the container */
+            width: 100%;
+            height: 100%;
+            display: block; /* Removes extra space below iframe */
+        }
+
+        .popular-badge {
+            /* New styles for the badge */
+            background-color: #f59e0b; /* Amber 500 */
+            color: #1e293b;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem; /* More subtle rounding */
+            font-size: 0.875rem; /* Smaller font size */
+            font-weight: 600; /* Medium font weight */
+            margin-bottom: 0.75rem;
+            display: inline-block;
+            box-shadow: none; /* Removed shadow */
+            animation: none; /* Removed animation */
+            transform-origin: unset;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            text-align: center;
+            border-top-left-radius: 0.75rem;
+            border-top-right-radius: 0.75rem;
+        }
+
+        /* Modal styles */
         .modal {
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
@@ -23,17 +211,17 @@
             height: 100%; /* Full height */
             overflow: auto; /* Enable scroll if needed */
             background-color: rgba(0,0,0,0.5); /* Black with opacity */
+            justify-content: center;
+            align-items: center;
         }
 
         .modal-content {
             background-color: #fefefe;
-            margin: 10% auto; /* 15% from the top and centered */
-            padding: 20px;
-            border: 1px solid #888;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15), 0 3px 5px -1px rgba(0, 0, 0, 0.1);
             width: 90%; /* Could be more or less, depending on screen size */
             max-width: 400px; /* Maximum width */
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             position: relative; /* For close button positioning */
         }
 
@@ -41,377 +229,329 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
         }
 
         .modal-header h2 {
             margin: 0;
             font-size: 1.5rem;
-            font-weight: 600;
-            color: #4a5568;
+            color: #1e293b;
         }
 
         .close-button {
-            color: #a0aec0;
-            font-size: 1.75rem;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: #cbd5e0;
+            font-size: 1.5rem;
             font-weight: bold;
-            position: absolute; /* Positioned absolutely within the modal-content */
-            top: 10px;
-            right: 15px;
             cursor: pointer;
             transition: color 0.2s ease;
+            border: none;
+            background: transparent;
+            padding: 0;
         }
 
         .close-button:hover,
         .close-button:focus {
-            color: #4a5568;
+            color: #6b7280;
             text-decoration: none;
         }
 
-
         .modal-body {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .modal-body p {
-            color: #718096;
+            color: #4b5563;
             margin-bottom: 1rem;
         }
 
-        .modal-footer {
+        .modal-form {
             display: flex;
-            justify-content: flex-end;
+            flex-direction: column;
         }
 
-        .modal-footer button {
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.375rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .modal-footer button:hover {
-            filter: brightness(95%);
-            box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .subscribe-button {
-            background-image: linear-gradient(to right, #68d391, #3182ce);
-            color: white;
-            border: none;
-        }
-        .subscribe-button:hover {
-             background-image: linear-gradient(to right, #48bb78, #2b6cb0);
-        }
-
-        .cancel-button {
-            background-color: #edf2f7;
-            color: #4a5568;
-            border: 1px solid #e2e8f0;
-        }
-
-        .cancel-button:hover {
-            background-color: #e2e8f0;
-        }
-
-        .input-error {
-            border-color: #e53e3e !important;
-            color: #e53e3e;
-        }
-
-        .error-message {
-            color: #e53e3e;
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
-            display: none; /* Initially hidden */
-        }
-
-        .error-message.visible {
-            display: block; /* Show error message */
-        }
-        .email-input {
-            border-radius: 0.375rem;
-            border: 1px solid #e2e8f0;
-            padding: 0.75rem;
-            width: 100%;
+        .modal-form label {
+            margin-bottom: 0.5rem;
+            color: #374151;
+            font-weight: 500;
             font-size: 1rem;
+        }
+
+        .modal-form input {
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            border: 1px solid #d1d5db;
             margin-bottom: 1rem;
+            font-size: 1rem;
             transition: border-color 0.2s ease;
         }
 
-        .email-input:focus {
+        .modal-form input:focus {
             outline: none;
-            border-color: #3182ce;
-            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+            border-color: #3b82f6; /* Blue 500 */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15); /* Light blue shadow */
         }
 
+        .modal-form button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out, transform 0.1s ease;
+            border: none;
+            background-color: #4f46e5; /* Indigo 600 */
+            color: white;
+            font-size: 1rem;
+        }
+
+        .modal-form button:hover {
+            background-color: #6366f1; /* Indigo 500 */
+            transform: scale(1.05);
+        }
+        .modal-footer{
+          text-align: right;
+        }
+
+        .testimonial-card .profile-picture {
+            width: 5rem; /* Adjust as needed */
+            height: 5rem;
+            border-radius: 50%;
+            margin-right: 1rem;
+            margin-bottom: 0;
+            object-fit: cover;
+        }
+
+        .testimonial-card-header{
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+        .testimonial-card-header h3{
+          margin-bottom: 0;
+        }
+
+        .customer-testimonials-container {
+            display: flex;
+            overflow-x: hidden; /* Changed to hidden */
+            padding-bottom: 20px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            position: relative;
+            align-items: center;
+            scroll-behavior: smooth; /* Add smooth scrolling */
+        }
+
+        .customer-testimonials-container .testimonial-card {
+            flex: 0 0 auto;
+            width: calc(50% - 4rem);
+            margin-right: 1rem;
+            scroll-snap-align: start;
+            box-sizing: border-box;
+        }
+
+        .customer-testimonials-container .testimonial-card:last-child {
+            margin-right: 0;
+        }
+
+        @media (max-width: 768px) {
+            .customer-testimonials-container .testimonial-card {
+                width: 90%;
+            }
+        }
+
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.2s ease;
+            z-index: 10;
+            border: none;
+        }
+
+        .nav-arrow:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .nav-left {
+            left: 0;
+            margin-left: -3rem;
+        }
+
+        .nav-right {
+            right: 0;
+            margin-right: -3rem;
+        }
+
+        .customer-testimonials-wrapper{
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-left: 3rem;
+            padding-right: 3rem;
+        }
+        .customer-testimonials-container{
+            margin-left: 0;
+            margin-right: 0;
+            overflow: hidden;
+            scroll-behavior: smooth;
+        }
     </style>
 </head>
-<body class="bg-gray-100 flex flex-col items-center min-h-screen py-10">
-    <div class="bg-white rounded-lg shadow-xl p-6 md:p-8 max-w-3xl w-full text-center">
-        <h1 class="text-3xl font-semibold text-indigo-600 mb-4">
-            <span class="bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">
-                Mastering Robotics: From Beginner to Expert
-            </span>
-        </h1>
-        <p class="text-gray-700 mb-6">
-            Unlock your potential in robotics with our comprehensive online course. Learn from industry experts and build real-world skills.
-        </p>
-        <a href="#tiers" id="get-started-button" class="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-semibold py-3 px-6 rounded-full transition duration-300 ease-in-out shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-75">
-            Get Started Now
-        </a>
-    </div>
-
-    <div id="tiers" class="container mx-auto py-16 px-4">
-        <h2 class="text-2xl font-semibold text-gray-800 text-center mb-8">Choose Your Learning Path</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-white rounded-lg shadow-md p-6 flex flex-col justify-between transition-transform duration-300 hover:shadow-lg hover:scale-105">
-                <h3 class="text-xl font-semibold text-green-500 mb-4 text-center">Tier 1: Basic</h3>
-                <p class="text-gray-700 text-lg mb-4">
-                    Fundamentals of robotics, introduction to programming, and hands-on projects.
-                </p>
-                <ul class="list-disc list-inside text-gray-600 mb-4">
-                    <li>Access to core modules</li>
-                    <li>Community forum access</li>
-                    <li>Beginner-level projects</li>
-                </ul>
-                <div class="text-center">
-                    <span class="text-2xl font-bold text-gray-900">$49</span>
-                    <span class="text-sm text-gray-500">/month</span>
-                    <a href="#" data-tier="Tier 1: Basic" class="open-modal-button mt-4 bg-gradient-to-r from-green-400 to-green-500 hover:from-green-500 hover:to-green-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-opacity-75 inline-block">
-                        Get Started
-                    </a>
-                </div>
+<body class="bg-gray-100">
+    <section class="section bg-gray-100">
+        <div class="container mx-auto text-center">
+            <div class="video-container">
+                <iframe
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                    title="Rick Astley - Never Gonna Give You Up (Official Music Video)"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
             </div>
-            <div class="bg-white rounded-lg shadow-md p-6 flex flex-col justify-between transition-transform duration-300 hover:shadow-lg hover:scale-105 relative z-10">
-                <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-yellow-400 text-gray-800 px-3 py-1 rounded-full text-sm font-semibold shadow-md z-20">
-                    Most Popular
+            <h2 class="section-title">Our Products</h2>
+            <div class="flex flex-col md:flex-row justify-center gap-6 mb-8">
+                <div class="product-card">
+                    <h3 class="text-xl font-semibold mb-2 text-blue-600">E-book: Mastering Productivity</h3>
+                    <p class="text-gray-700 mb-4">Learn the secrets to supercharge your productivity and achieve your goals faster.</p>
+                    <p class="price">$19.99</p>
+                    <button class="btn btn-primary buy-btn">Buy Now</button>
                 </div>
-                <h3 class="text-xl font-semibold text-blue-500 mb-4 text-center">Tier 2: Intermediate</h3>
-                <p class="text-gray-700 text-lg mb-4">
-                    Advanced robotics concepts, sensor integration, and building complex systems.
-                </p>
-                <ul class="list-disc list-inside text-gray-600 mb-4">
-                    <li>All Basic tier benefits</li>
-                    <li>Advanced modules</li>
-                    <li>One-on-one mentoring</li>
-                    <li>Intermediate-level projects</li>
-                </ul>
-                <div class="text-center">
-                    <span class="text-2xl font-bold text-gray-900">$99</span>
-                    <span class="text-sm text-gray-500">/month</span>
-                    <a href="#" data-tier="Tier 2: Intermediate" class="open-modal-button mt-4 bg-gradient-to-r from-blue-400 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-75 inline-block">
-                        Upgrade Now
-                    </a>
+                <div class="product-card relative">
+                    <div class="popular-badge">Most Popular</div>
+                    <h3 class="text-xl font-semibold mb-2 text-blue-600">Online Course: Digital Marketing 101</h3>
+                    <p class="text-gray-700 mb-4">Master the fundamentals of digital marketing and grow your online presence.</p>
+                    <p class="price">$49.99</p>
+                    <button class="btn btn-primary buy-btn">Buy Now</button>
                 </div>
-            </div>
-            <div class="bg-white rounded-lg shadow-md p-6 flex flex-col justify-between transition-transform duration-300 hover:shadow-lg hover:scale-105">
-                <h3 class="text-xl font-semibold text-purple-500 mb-4 text-center">Tier 3: Expert</h3>
-                <p class="text-gray-700 text-lg mb-4">
-                    Cutting-edge robotics research, AI integration, and developing innovative solutions.
-                </p>
-                <ul class="list-disc list-inside text-gray-600 mb-4">
-                    <li>All Intermediate tier benefits</li>
-                    <li>Expert-level modules</li>
-                    <li>Research opportunities</li>
-                    <li>Advanced projects and thesis</li>
-                </ul>
-                <div class="text-center">
-                    <span class="text-2xl font-bold text-gray-900">$199</span>
-                    <span class="text-sm text-gray-500">/month</span>
-                    <a href="#" data-tier="Tier 3: Expert" class="open-modal-button mt-4 bg-gradient-to-r from-purple-400 to-purple-500 hover:from-purple-500 hover:to-purple-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-300 focus:ring-opacity-75 inline-block">
-                        Enroll Today
-                    </a>
+                <div class="product-card">
+                    <h3 class="text-xl font-semibold mb-2 text-blue-600">Software License: Photo Editor Pro</h3>
+                    <p class="text-gray-700 mb-4">Unlock advanced photo editing features with our powerful software.</p>
+                    <p class="price">$149.99</p>
+                    <button class="btn btn-primary buy-btn">Buy Now</button>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="bg-gray-50 py-16 px-4">
+    <section class="section bg-gray-100">
+        <div class="container mx-auto text-center">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <div class="customer-testimonials-wrapper">
+                <button class="nav-arrow nav-left" id="prev-button">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="customer-testimonials-container" id="testimonials-container">
+                    <div class="testimonial-card">
+                        <div class="testimonial-card-header">
+                            <img src="https://placehold.co/50x50/EEE/31343C" alt="Profile" class="profile-picture">
+                            <h3 class="text-lg font-semibold mb-2 text-green-600">John Doe</h3>
+                        </div>
+                        <p class="text-gray-700 mb-4">"The e-book was incredibly helpful! I've seen a significant improvement in my productivity."</p>
+                        <p class="author">- Happy Customer</p>
+                    </div>
+                    <div class="testimonial-card">
+                         <div class="testimonial-card-header">
+                            <img src="https://placehold.co/50x50/EEE/31343C" alt="Profile" class="profile-picture">
+                            <h3 class="text-lg font-semibold mb-2 text-green-600">Jane Smith</h3>
+                        </div>
+                        <p class="text-gray-700 mb-4">"The online course was fantastic. The instructor was knowledgeable and engaging."</p>
+                        <p class="author">- Satisfied Learner</p>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-card-header">
+                            <img src="https://placehold.co/50x50/EEE/31343C" alt="Profile" class="profile-picture">
+                            <h3 class="text-lg font-semibold mb-2 text-green-600">Mike Johnson</h3>
+                         </div>
+                        <p class="text-gray-700 mb-4">"Photo Editor Pro has transformed my workflow.  It's intuitive and powerful."</p>
+                        <p class="author">- Professional Photographer</p>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-card-header">
+                            <img src="https://placehold.co/50x50/EEE/31343C" alt="Profile" class="profile-picture">
+                            <h3 class="text-lg font-semibold mb-2 text-green-600">Sarah Williams</h3>
+                        </div>
+                        <p class="text-gray-700 mb-4">"I highly recommend the digital marketing course.  My business has seen significant growth."</p>
+                        <p class="author">- Small Business Owner</p>
+                    </div>
+                </div>
+                <button class="nav-arrow nav-right" id="next-button">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="section cta-section bg-gray-100">
         <div class="container mx-auto">
-            <h2 class="text-2xl font-semibold text-gray-800 text-center mb-8">What Our Students Say</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white rounded-lg shadow-md p-6 flex items-start">
-                    <div class="mr-4">
-                         <img src="https://placehold.co/50x50/EEE/31343C" alt="Profile" class="rounded-full">
-                    </div>
-                    <div>
-                        <p class="text-gray-700 italic mb-4">
-                            "This course completely changed my understanding of robotics. The hands-on projects were incredibly valuable."
-                        </p>
-                        <p class="text-gray-600 font-semibold">- Sarah M., Engineering Student</p>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-md p-6 flex items-start">
-                    <div class="mr-4">
-                         <img src="https://placehold.co/50x50/EEE/31343C" alt="Profile" class="rounded-full">
-                    </div>
-                    <div>
-                        <p class="text-gray-700 italic mb-4">
-                            "The instructors are experts in their field and provide amazing support. I highly recommend this course to anyone interested in robotics."
-                        </p>
-                        <p class="text-gray-600 font-semibold">- John K., Hobbyist</p>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-md p-6 flex items-start">
-                    <div class="mr-4">
-                        <img src="https://placehold.co/50x50/EEE/31343C" alt="Profile" class="rounded-full">
-                    </div>
-                    <div>
-                        <p class="text-gray-700 italic mb-4">
-                            "The course content is well-structured and easy to follow. I was able to build my first robot within weeks!"
-                        </p>
-                        <p class="text-gray-600 font-semibold">- Emily L., High School Student</p>
-                    </div>
-                </div>
-            </div>
+            <h2>Ready to Get Started?</h2>
+            <p>Explore our products and take the next step towards achieving your goals.</p>
+            <button class="shop-now-btn">Shop Now</button>
         </div>
-    </div>
+    </section>
 
-    <div class="container mx-auto py-16 px-4">
-        <h2 class="text-2xl font-semibold text-gray-800 text-center mb-8">Frequently Asked Questions</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-                <h3 class="text-lg font-semibold text-gray-700 mb-2">What are the prerequisites for this course?</h3>
-                <p class="text-gray-600">
-                    No prior experience is required for the Basic tier. However, some programming knowledge is recommended for the Intermediate and Expert tiers.
-                </p>
-            </div>
-            <div>
-                <h3 class="text-lg font-semibold text-gray-700 mb-2">How long does the course take to complete?</h3>
-                <p class="text-gray-600">
-                    The course is self-paced, and the completion time varies depending on your learning speed and the tier you choose.
-                </p>
-            </div>
-            <div>
-                <h3 class="text-lg font-semibold text-gray-700 mb-2">Will I receive a certificate upon completion?</h3>
-                <p class="text-gray-600">
-                    Yes, you will receive a certificate of completion for each tier you complete.
-                </p>
-            </div>
-            <div>
-                <h3 class="text-lg font-semibold text-gray-700 mb-2">Is there any financial aid available?</h3>
-                <p class="text-gray-600">
-                    We offer a limited number of scholarships for students who demonstrate financial need. Please contact us for more information.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <footer class="bg-gray-100 text-gray-600 py-4 text-center w-full">
-        <p>© 2024 Robotics Learning Platform. All rights reserved.</p>
+    <footer class="footer">
+        <p>© 2023 Digital Products Store. All rights reserved.</p>
     </footer>
 
-    <div id="email-capture-modal" class="modal">
+    <div id="emailModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Get Started with Robotics</h2>
-                <span class="close-button">&times;</span>
+                <h2>Get Exclusive Access!</h2>
+                <button id="closeModalBtn" class="close-button">×</button>
             </div>
             <div class="modal-body">
-                <p>Enter your email address to receive our course updates and exclusive offers:</p>
-                <input type="email" id="email-input" class="email-input" placeholder="Enter your email">
-                <p id="email-error" class="error-message">Please enter a valid email address.</p>
-                <p id="tier-info"></p>
+                <p>Enter your email address to receive special offers and updates:</p>
+                <form id="emailForm" class="modal-form">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    <button type="submit">Submit</button>
+                </form>
             </div>
             <div class="modal-footer">
-                <button id="subscribe-button" class="subscribe-button">Subscribe</button>
-                <button id="cancel-button" class="cancel-button">Cancel</button>
+                <p>Thank you!</p>
             </div>
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        // Get the modal
-        const modal = document.getElementById("email-capture-modal");
-
-        // Get the buttons that open the modal
-        const openModalButtons = document.querySelectorAll(".open-modal-button");
-        const getStartedButton = document.getElementById("get-started-button"); // Select the anchor tag
-
-        // Get the close button
-        const closeButton = document.querySelector(".close-button");
-
-        // Get the subscribe and cancel buttons
-        const subscribeButton = document.getElementById("subscribe-button");
-        const cancelButton = document.getElementById("cancel-button");
-
-        // Get the email input field and error message
-        const emailInput = document.getElementById("email-input");
-        const emailError = document.getElementById("email-error");
-        const tierInfo = document.getElementById("tier-info");
-
-        let selectedTier = ""; // To store the selected tier
-
-        // Function to open the modal
-        function openModal(tierName) {
-            modal.style.display = "block";
-            selectedTier = tierName; // Store the tier
-            tierInfo.textContent = `You have selected: ${tierName}`; // Display tier info
-            emailInput.value = ""; // Clear input
-            emailError.classList.remove("visible"); // Hide error message
-            emailInput.classList.remove("input-error");
-        }
-
-        // Event listener for the "Get Started Now" anchor tag
-        getStartedButton.addEventListener("click", function(event) {
-            event.preventDefault(); // Prevent the default action (scrolling to #tiers)
-            openModal("General Inquiry"); // Open the modal with a general inquiry message
-        });
-
-
-        // Loop through all buttons that open the modal
-        openModalButtons.forEach(button => {
-            button.addEventListener("click", function() {
-                const tierName = this.getAttribute("data-tier"); // Get the tier from the data-tier attribute
-                openModal(tierName); // Call the openModal function with the tier name
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
         });
 
-        // When the user clicks on the close button
-        closeButton.addEventListener("click", function() {
-            modal.style.display = "none";
-        });
+        // Get the modal
+        const modal = document.getElementById("emailModal");
 
-        // When the user clicks on the cancel button
-        cancelButton.addEventListener("click", function() {
-            modal.style.display = "none";
-        });
+        // Get the button that opens the modal
+        const buyBtns = document.querySelectorAll(".buy-btn");
 
-        // When the user clicks outside the modal
-        window.addEventListener("click", function(event) {
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-        });
+        // Get the button that closes the modal
+        const closeModalBtn = document.getElementById("closeModalBtn");
 
-        // Event listener for the subscribe button
-        subscribeButton.addEventListener("click", function() {
-            const email = emailInput.value.trim();
+        // Get the form
+        const emailForm = document.getElementById("emailForm");
 
-            if (!isValidEmail(email)) {
-                emailError.classList.add("visible");
-                emailInput.classList.add("input-error");
-                return; // Stop execution if email is invalid
-            }
-
-            // Here, you would typically send the email to your server
-            // For this example, we'll just log it to the console
-            console.log("Email:", email, "Tier:", selectedTier);
-            alert(`Thank you for subscribing! We will send updates about ${selectedTier} to ${email}`); //Basic alert
-            modal.style.display = "none"; // Close the modal
-        });
-
-        // Email validation function
-        function isValidEmail(email) {
-            // Basic email validation regex
-            const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-            return emailRegex.test(email);
-        }
-    </script>
-</body>
-</html>
+        // Open the modal w
