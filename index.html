@@ -1,184 +1,454 @@
-<!DOCTYPE HTML>
-<!--
-	Stellar by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Stellar by HTML5 UP</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Products Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <style>
+        /* Updated Custom styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Lighter background */
+        }
+        .product-card {
+            background-color: white;
+            border-radius: 0.75rem; /* Rounded corners */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Shadow */
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transition */
+            border: 1px solid #e5e7eb; /* Add a border */
+        }
+        .product-card:hover {
+            transform: translateY(-0.5rem); /* Slight lift on hover */
+            box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15), 0 3px 5px -1px rgba(0, 0, 0, 0.1); /* Increased shadow on hover */
+        }
+        .product-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1e293b; /* Darker heading */
+        }
+        .product-card p {
+            color: #4b5563; /* Slightly darker text */
+            margin-bottom: 1rem;
+            line-height: 1.75; /* Improved line height for readability */
+        }
+        .product-card .price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1d4ed8; /* Highlighted price */
+            margin-bottom: 1.5rem; /* Increased margin */
+            transition: color 0.3s ease; /* Smooth transition for price color */
+        }
+        .product-card:hover .price {
+            color: #2563eb; /* Slightly brighter on hover */
+        }
+        .btn {
+            font-family: 'Inter', sans-serif;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out, transform 0.1s ease;
+            border: none;
+            display: inline-flex; /* Use inline-flex for better alignment */
+            align-items: center;
+            justify-content: center;
+            width: 100%; /* Make button full width of card */
+        }
+        .btn-primary {
+            background-color: #4f46e5; /* Vibrant indigo */
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #6366f1; /* Lighter indigo on hover */
+            transform: scale(1.05); /* Slight scale on hover */
+        }
+        .btn-secondary {
+            background-color: #e0f2fe; /* Light cyan */
+            color: #06b6d4; /* Darker cyan text */
+        }
+        .btn-secondary:hover {
+            background-color: #f0f9ff; /* Even lighter cyan on hover */
+            transform: scale(1.05);
+        }
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+        .section {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 4rem;
+            color: #1e293b;
+            text-align: center;
+        }
+        .testimonial-card {
+            background-color: #fff;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e7eb;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-0.25rem);
+            box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15), 0 3px 5px -1px rgba(0, 0, 0, 0.1);
+        }
+        .testimonial-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #10b981; /* Emerald */
+        }
+        .testimonial-card p {
+            color: #6b7280;
+            margin-bottom: 1rem;
+            line-height: 1.75;
+        }
+        .testimonial-card .author {
+            font-style: italic;
+            color: #9ca3af;
+        }
+        .cta-section {
+            text-align: center;
+        }
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #1e293b;
+        }
+        .cta-section p {
+            font-size: 1.25rem;
+            color: #4b5563;
+            margin-bottom: 2rem;
+        }
+        .shop-now-btn {
+            background-color: #8b5cf6; /* Violet */
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 1.25rem;
+            transition: background-color 0.3s ease-in-out, transform 0.1s ease;
+            cursor: pointer;
+            border: none;
+        }
+        .shop-now-btn:hover {
+            background-color: #a855f7; /* Lighter violet on hover */
+            transform: scale(1.05);
+        }
+        .footer {
+            background-color: #1f2937;
+            color: #f9fafb;
+            padding: 1.5rem;
+            text-align: center;
+            border-top-left-radius: 0.75rem;
+            border-top-right-radius: 0.75rem;
+        }
+        .video-container {
+            /* Changed from video-placeholder to video-container */
+            margin-bottom: 2rem;
+            border-radius: 0.75rem;
+            overflow: hidden;  /* Clip the video content */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            position: relative; /* Needed for absolute positioning of controls */
+            width: 640px; /* Reduced width */
+            height: 360px; /* Reduced height, maintaining 16:9 aspect ratio */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .video-container iframe {
+            /* Make the iframe fill the container */
+            width: 100%;
+            height: 100%;
+            display: block; /* Removes extra space below iframe */
+        }
 
-				<!-- Header -->
-					<header id="header" class="alt">
-						<span class="logo"><img src="images/logo.svg" alt="" /></span>
-						<h1>Stellar</h1>
-						<p>Just another free, fully responsive site template<br />
-						built by <a href="https://twitter.com/ajlkn">@ajlkn</a> for <a href="https://html5up.net">HTML5 UP</a>.</p>
-					</header>
+        .popular-badge {
+            /* New styles for the badge */
+            background-color: #10b981; /* Emerald 500 */
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            display: inline-block;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
 
-				<!-- Nav -->
-					<nav id="nav">
-						<ul>
-							<li><a href="#intro" class="active">Introduction</a></li>
-							<li><a href="#first">First Section</a></li>
-							<li><a href="#second">Second Section</a></li>
-							<li><a href="#cta">Get Started</a></li>
-						</ul>
-					</nav>
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.5); /* Black with opacity */
+            justify-content: center;
+            align-items: center;
+        }
 
-				<!-- Main -->
-					<div id="main">
+        .modal-content {
+            background-color: #fefefe;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15), 0 3px 5px -1px rgba(0, 0, 0, 0.1);
+            width: 90%; /* Could be more or less, depending on screen size */
+            max-width: 400px; /* Maximum width */
+            position: relative; /* For close button positioning */
+        }
 
-						<!-- Introduction -->
-							<section id="intro" class="main">
-								<div class="spotlight">
-									<div class="content">
-										<header class="major">
-											<h2>Ipsum sed adipiscing</h2>
-										</header>
-										<p>Sed lorem ipsum dolor sit amet nullam consequat feugiat consequat magna
-										adipiscing magna etiam amet veroeros. Lorem ipsum dolor tempus sit cursus.
-										Tempus nisl et nullam lorem ipsum dolor sit amet aliquam.</p>
-										<ul class="actions">
-											<li><a href="generic.html" class="button">Learn More</a></li>
-										</ul>
-									</div>
-									<span class="image"><img src="images/pic01.jpg" alt="" /></span>
-								</div>
-							</section>
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
 
-						<!-- First Section -->
-							<section id="first" class="main special">
-								<header class="major">
-									<h2>Magna veroeros</h2>
-								</header>
-								<ul class="features">
-									<li>
-										<span class="icon major style1 fa-code"></span>
-										<h3>Ipsum consequat</h3>
-										<p>Sed lorem amet ipsum dolor et amet nullam consequat a feugiat consequat tempus veroeros sed consequat.</p>
-									</li>
-									<li>
-										<span class="icon major style3 fa-copy"></span>
-										<h3>Amed sed feugiat</h3>
-										<p>Sed lorem amet ipsum dolor et amet nullam consequat a feugiat consequat tempus veroeros sed consequat.</p>
-									</li>
-									<li>
-										<span class="icon major style5 fa-diamond"></span>
-										<h3>Dolor nullam</h3>
-										<p>Sed lorem amet ipsum dolor et amet nullam consequat a feugiat consequat tempus veroeros sed consequat.</p>
-									</li>
-								</ul>
-								<footer class="major">
-									<ul class="actions special">
-										<li><a href="generic.html" class="button">Learn More</a></li>
-									</ul>
-								</footer>
-							</section>
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #1e293b;
+        }
 
-						<!-- Second Section -->
-							<section id="second" class="main special">
-								<header class="major">
-									<h2>Ipsum consequat</h2>
-									<p>Donec imperdiet consequat consequat. Suspendisse feugiat congue<br />
-									posuere. Nulla massa urna, fermentum eget quam aliquet.</p>
-								</header>
-								<ul class="statistics">
-									<li class="style1">
-										<span class="icon fa-code-fork"></span>
-										<strong>5,120</strong> Etiam
-									</li>
-									<li class="style2">
-										<span class="icon fa-folder-open-o"></span>
-										<strong>8,192</strong> Magna
-									</li>
-									<li class="style3">
-										<span class="icon fa-signal"></span>
-										<strong>2,048</strong> Tempus
-									</li>
-									<li class="style4">
-										<span class="icon fa-laptop"></span>
-										<strong>4,096</strong> Aliquam
-									</li>
-									<li class="style5">
-										<span class="icon fa-diamond"></span>
-										<strong>1,024</strong> Nullam
-									</li>
-								</ul>
-								<p class="content">Nam elementum nisl et mi a commodo porttitor. Morbi sit amet nisl eu arcu faucibus hendrerit vel a risus. Nam a orci mi, elementum ac arcu sit amet, fermentum pellentesque et purus. Integer maximus varius lorem, sed convallis diam accumsan sed. Etiam porttitor placerat sapien, sed eleifend a enim pulvinar faucibus semper quis ut arcu. Ut non nisl a mollis est efficitur vestibulum. Integer eget purus nec nulla mattis et accumsan ut magna libero. Morbi auctor iaculis porttitor. Sed ut magna ac risus et hendrerit scelerisque. Praesent eleifend lacus in lectus aliquam porta. Cras eu ornare dui curabitur lacinia.</p>
-								<footer class="major">
-									<ul class="actions special">
-										<li><a href="generic.html" class="button">Learn More</a></li>
-									</ul>
-								</footer>
-							</section>
+        .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: #cbd5e0;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            border: none;
+            background: transparent;
+            padding: 0;
+        }
 
-						<!-- Get Started -->
-							<section id="cta" class="main special">
-								<header class="major">
-									<h2>Congue imperdiet</h2>
-									<p>Donec imperdiet consequat consequat. Suspendisse feugiat congue<br />
-									posuere. Nulla massa urna, fermentum eget quam aliquet.</p>
-								</header>
-								<footer class="major">
-									<ul class="actions special">
-										<li><a href="generic.html" class="button primary">Get Started</a></li>
-										<li><a href="generic.html" class="button">Learn More</a></li>
-									</ul>
-								</footer>
-							</section>
+        .close-button:hover,
+        .close-button:focus {
+            color: #6b7280;
+            text-decoration: none;
+        }
 
-					</div>
+        .modal-body {
+            margin-bottom: 1.5rem;
+        }
 
-				<!-- Footer -->
-					<footer id="footer">
-						<section>
-							<h2>Aliquam sed mauris</h2>
-							<p>Sed lorem ipsum dolor sit amet et nullam consequat feugiat consequat magna adipiscing tempus etiam dolore veroeros. eget dapibus mauris. Cras aliquet, nisl ut viverra sollicitudin, ligula erat egestas velit, vitae tincidunt odio.</p>
-							<ul class="actions">
-								<li><a href="generic.html" class="button">Learn More</a></li>
-							</ul>
-						</section>
-						<section>
-							<h2>Etiam feugiat</h2>
-							<dl class="alt">
-								<dt>Address</dt>
-								<dd>1234 Somewhere Road &bull; Nashville, TN 00000 &bull; USA</dd>
-								<dt>Phone</dt>
-								<dd>(000) 000-0000 x 0000</dd>
-								<dt>Email</dt>
-								<dd><a href="#">information@untitled.tld</a></dd>
-							</dl>
-							<ul class="icons">
-								<li><a href="#" class="icon fa-twitter alt"><span class="label">Twitter</span></a></li>
-								<li><a href="#" class="icon fa-facebook alt"><span class="label">Facebook</span></a></li>
-								<li><a href="#" class="icon fa-instagram alt"><span class="label">Instagram</span></a></li>
-								<li><a href="#" class="icon fa-github alt"><span class="label">GitHub</span></a></li>
-								<li><a href="#" class="icon fa-dribbble alt"><span class="label">Dribbble</span></a></li>
-							</ul>
-						</section>
-						<p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-					</footer>
+        .modal-body p {
+            color: #4b5563;
+            margin-bottom: 1rem;
+        }
 
-			</div>
+        .modal-form {
+            display: flex;
+            flex-direction: column;
+        }
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+        .modal-form label {
+            margin-bottom: 0.5rem;
+            color: #374151;
+            font-weight: 500;
+            font-size: 1rem;
+        }
 
-	</body>
+        .modal-form input {
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            border: 1px solid #d1d5db;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .modal-form input:focus {
+            outline: none;
+            border-color: #3b82f6; /* Blue 500 */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15); /* Light blue shadow */
+        }
+
+        .modal-form button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out, transform 0.1s ease;
+            border: none;
+            background-color: #4f46e5; /* Indigo 600 */
+            color: white;
+            font-size: 1rem;
+        }
+
+        .modal-form button:hover {
+            background-color: #6366f1; /* Indigo 500 */
+            transform: scale(1.05);
+        }
+        .modal-footer{
+          text-align: right;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <section class="section bg-gray-100">
+        <div class="container mx-auto text-center">
+            <div class="video-container">
+                <iframe
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                    title="Rick Astley - Never Gonna Give You Up (Official Music Video)"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <h2 class="section-title">Our Products</h2>
+            <div class="flex flex-col md:flex-row justify-center gap-6 mb-8">
+                <div class="product-card">
+                    <h3 class="text-xl font-semibold mb-2 text-blue-600">E-book: Mastering Productivity</h3>
+                    <p class="text-gray-700 mb-4">Learn the secrets to supercharge your productivity and achieve your goals faster.</p>
+                    <p class="price">$19.99</p>
+                    <button class="btn btn-primary buy-btn">Buy Now</button>
+                </div>
+                <div class="product-card">
+                    <span class="popular-badge">Most Popular</span>
+                    <h3 class="text-xl font-semibold mb-2 text-blue-600">Online Course: Digital Marketing 101</h3>
+                    <p class="text-gray-700 mb-4">Master the fundamentals of digital marketing and grow your online presence.</p>
+                    <p class="price">$49.99</p>
+                    <button class="btn btn-primary buy-btn">Buy Now</button>
+                </div>
+                <div class="product-card">
+                    <h3 class="text-xl font-semibold mb-2 text-blue-600">Software License: Photo Editor Pro</h3>
+                    <p class="text-gray-700 mb-4">Unlock advanced photo editing features with our powerful software.</p>
+                    <p class="price">$149.99</p>
+                    <button class="btn btn-primary buy-btn">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section bg-gray-100">
+        <div class="container mx-auto text-center">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="testimonial-card">
+                    <h3 class="text-lg font-semibold mb-2 text-green-600">John Doe</h3>
+                    <p class="text-gray-700 mb-4">"The e-book was incredibly helpful! I've seen a significant improvement in my productivity."</p>
+                    <p class="author">- Happy Customer</p>
+                </div>
+                <div class="testimonial-card">
+                    <h3 class="text-lg font-semibold mb-2 text-green-600">Jane Smith</h3>
+                    <p class="text-gray-700 mb-4">"The online course was fantastic. The instructor was knowledgeable and engaging."</p>
+                    <p class="author">- Satisfied Learner</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section cta-section bg-gray-100">
+        <div class="container mx-auto">
+            <h2>Ready to Get Started?</h2>
+            <p>Explore our products and take the next step towards achieving your goals.</p>
+            <button class="shop-now-btn">Shop Now</button>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>© 2023 Digital Products Store. All rights reserved.</p>
+    </footer>
+
+    <div id="emailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Get Exclusive Access!</h2>
+                <button id="closeModalBtn" class="close-button">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Enter your email address to receive special offers and updates:</p>
+                <form id="emailForm" class="modal-form">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <p>Thank you!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Get the modal
+        const modal = document.getElementById("emailModal");
+
+        // Get the button that opens the modal
+        const buyBtns = document.querySelectorAll(".buy-btn");
+
+        // Get the button that closes the modal
+        const closeModalBtn = document.getElementById("closeModalBtn");
+
+        // Get the form
+        const emailForm = document.getElementById("emailForm");
+
+        // Open the modal when any buy button is clicked
+        buyBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                modal.style.display = "flex";
+            });
+        });
+
+        // Close the modal when the close button is clicked
+        closeModalBtn.addEventListener('click', () => {
+            modal.style.display = "none";
+        });
+
+        // Close the modal when clicking outside the modal content
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+
+        // Handle form submission (you can add your logic here)
+        emailForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const emailInput = document.getElementById("email");
+            const email = emailInput.value;
+            // In a real application, you would send this email to a server
+            console.log("Email submitted:", email);
+            alert(`Email submitted successfully! Thank you, ${email}`); //changed to alert
+            modal.style.display = "none";
+            emailInput.value = '';
+
+        });
+    </script>
+</body>
 </html>
