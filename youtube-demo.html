@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Sales Landing Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .course-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .course-price-enroll {
+            margin-top: auto; /* Push price and enroll button to the bottom */
+            display: flex; /* Add flexbox for horizontal alignment */
+            justify-content: space-between; /* Push price to the left, button to the right */
+            align-items: center; /* Vertically center price and button */
+        }
+
+        /* Popup Styles */
+        .popup {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5); /* Black with opacity */
+        }
+
+        .popup-content {
+            background-color: #fff;
+            margin: 10% auto; /* More centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%; /* Responsive width */
+            max-width: 400px; /* Maximum width */
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative; /* Allows for absolute positioning of close button */
+        }
+
+        .popup-close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute; /* Positioned relative to .popup-content */
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+        }
+
+        .popup-close:hover,
+        .popup-close:focus {
+            color: #000;
+            text-decoration: none;
+        }
+
+        .popup-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .popup-form input{
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+       .popup-form button{
+            padding: 0.75rem 1rem;
+            background-color: #4f46e5;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border: none;
+            width: 100%;
+       }
+      .popup-form button:hover {
+            background-color: #4338ca;
+      }
+
+        @media screen and (max-width: 600px) {
+            .popup-content {
+                width: 95%;
+                margin: 20px auto;
+            }
+        }
+
+        /* Video Player Styles */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Student Testimonial Styles */
+        .student-testimonial {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #fff;
+            dark:bg-gray-800;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .student-testimonial:hover {
+            transform: translateY(-0.5rem);
+        }
+
+        .student-image {
+            width: 5rem;
+            height: 5rem;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            object-fit: cover; /* Ensure image fills the circle */
+            border: 2px solid #4f46e5;
+        }
+
+        .student-name {
+            font-weight: 600;
+            color: #1f2937;
+            dark:text-white;
+            margin-top: 0.5rem;
+        }
+
+        .testimonial-text {
+            color: #4b5563;
+            dark:text-gray-300;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900">
+    <section class="bg-gradient-to-br from-indigo-700 to-pink-700 text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">Unlock Your Potential with Our Expert-Led Courses</h2>
+            <p class="text-lg sm:text-xl mb-8">Gain new skills and advance your career with our comprehensive online courses.</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section id="courses" class="py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-3xl font-semibold text-gray-800 dark:text-white text-center mb-8">Our Courses</h3>
+            <div class="flex flex-col sm:flex-row gap-8">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-lg sm:w-1/3 course-card">
+                    <img src="https://placehold.co/400x225/EEE/31343C" alt="Course Thumbnail 1" class="w-full">
+                    <div class="p-4">
+                        <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Web Development Masterclass</h4>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Learn to build stunning websites and web applications from scratch.</p>
+                        <ul class="list-disc list-inside text-gray-600 dark:text-gray-300 mb-4">
+                            <li>HTML, CSS, JavaScript</li>
+                            <li>React, Node.js</li>
+                            <li>Database Management</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 course-price-enroll">
+                        <span class="text-xl font-bold text-indigo-600 dark:text-indigo-400">$49</span>
+                        <button class="enroll-btn bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-md transition duration-300">
+                            Enroll Now
+                        </button>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-lg sm:w-1/3 relative top-[-20px] sm:top-0 course-card">
+                    <div class="absolute top-0 left-0 bg-yellow-500 text-gray-900 px-3 py-1 rounded-md text-sm font-semibold">
+                        Most Popular
+                    </div>
+                    <img src="https://placehold.co/400x225/EEE/31343C" alt="Course Thumbnail 2" class="w-full">
+                    <div class="p-4">
+                        <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Data Science Bootcamp</h4>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Master the tools and techniques of data analysis and machine learning.</p>
+                        <ul class="list-disc list-inside text-gray-600 dark:text-gray-300 mb-4">
+                            <li>Python, R</li>
+                            <li>Data Visualization</li>
+                            <li>Machine Learning Algorithms</li>
+                        </ul>
+                       </div>
+                    <div class="p-4 course-price-enroll">
+                        <span class="text-xl font-bold text-indigo-600 dark:text-indigo-400">$99</span>
+                        <button class="enroll-btn bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-md transition duration-300">
+                            Enroll Now
+                        </button>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-lg sm:w-1/3 course-card">
+                    <img src="https://placehold.co/400x225/EEE/31343C" alt="Course Thumbnail 3" class="w-full">
+                    <div class="p-4">
+                        <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Mobile App Development</h4>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Build cross-platform mobile apps for iOS and Android.</p>
+                        <ul class="list-disc list-inside text-gray-600 dark:text-gray-300 mb-4">
+                            <li>React Native</li>
+                            <li>Swift, Kotlin</li>
+                            <li>UI/UX Design</li>
+                        </ul>
+                        </div>
+                    <div class="p-4 course-price-enroll">
+                        <span class="text-xl font-bold text-indigo-600 dark:text-indigo-400">$149</span>
+                        <button class="enroll-btn bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-md transition duration-300">
+                            Enroll Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-indigo-100 dark:bg-indigo-900 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto text-center">
+            <h3 class="text-3xl font-semibold text-gray-800 dark:text-white mb-8">What Our Students Say</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="student-testimonial">
+                    <img src="https://placehold.co/150x150/EEE/31343C" alt="Student 1" class="student-image">
+                    <p class="testimonial-text">"The Web Development Masterclass was amazing! I learned so much and now I'm building websites for clients."</p>
+                    <p class="student-name">- John Doe</p>
+                </div>
+                <div class="student-testimonial">
+                     <img src="https://placehold.co/150x150/EEE/31343C" alt="Student 2" class="student-image">
+                    <p class="testimonial-text">"I highly recommend the Data Science Bootcamp. The instructors were knowledgeable and the curriculum was comprehensive."</p>
+                    <p class="student-name">- Jane Smith</p>
+                </div>
+                <div class="student-testimonial">
+                    <img src="https://placehold.co/150x150/EEE/31343C" alt="Student 3" class="student-image">
+                    <p class="testimonial-text">"The Mobile App Development course gave me the skills I needed to launch my own app. Great course!"</p>
+                    <p class="student-name">- Mike Johnson</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gradient-to-br from-purple-600 to-indigo-600 text-white py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-3xl sm:text-4xl font-semibold mb-4">Ready to Start Your Learning Journey?</h2>
+            <p class="text-lg sm:text-xl mb-6">Enroll in our courses today and take the next step in your career.</p>
+            <a href="#courses" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 px-6 py-3 rounded-md text-lg transition duration-300">
+                Enroll Now
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-300 py-6 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto text-center">
+            <p>© 2024 Your Courses. All rights reserved.</p>
+            <div class="mt-4 flex justify-center gap-4">
+                <a href="https://www.facebook.com/yourcourses" target="_blank" class="hover:text-blue-500 dark:hover:text-blue-400 transition duration-200">Facebook</a>
+                <a href="https://www.twitter.com/yourcourses" target="_blank" class="hover:text-blue-500 dark:hover:text-blue-400 transition duration-200">Twitter</a>
+                <a href="https://www.instagram.com/yourcourses" target="_blank" class="hover:text-blue-500 dark:hover:text-blue-400 transition duration-200">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="emailPopup" class="popup">
+        <div class="popup-content">
+            <span class="popup-close">×</span>
+            <h3>Register for the Course</h3>
+            <p>Enter your email address to get started:</p>
+            <form class="popup-form" id="registrationForm">
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <button type="submit">Submit</button>
+            </form>
+            <div id="registrationMessage" class="mt-4 text-yellow-600 font-semibold"></div>
+        </div>
+    </div>
+
+    <script>
+        // Get all enroll buttons
+        const enrollButtons = document.querySelectorAll('.enroll-btn');
+        const emailPopup = document.getElementById('emailPopup');
+        const popupClose = document.querySelector('.popup-close');
+        const registrationForm = document.getElementById('registrationForm');
+        const registrationMessage = document.getElementById('registrationMessage');
+
+        let isSubscribed = false; // You would check this from localStorage or your backend
+
+        // Function to show the popup
+        function showPopup() {
+            if (!isSubscribed) {
+                emailPopup.style.display = "block";
+            } else {
+                alert("You are already subscribed!"); // replace with a better UI notification
+            }
+
+        }
+        // Function to hide the popup
+        function hidePopup() {
+            emailPopup.style.display = "none";
+        }
+
+        // Event listener for enroll buttons
+        enrollButtons.forEach(button => {
+            button.addEventListener('click', showPopup);
+        });
+
+        // Event listener for close button
+        popupClose.addEventListener('click', hidePopup);
+
+        // Event listener for clicks outside the popup
+        window.addEventListener('click', (event) => {
+            if (event.target === emailPopup) {
+                hidePopup();
+            }
+        });
+
+        // Event listener for form submission
+        registrationForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevent default form submission
+
+            const emailInput = document.getElementById('email');
+            const email = emailInput.value;
+
+            // Basic email validation
+            if (!isValidEmail(email)) {
+                registrationMessage.textContent = "Please enter a valid email address.";
+                return;
+            }
+
+            // Simulate a successful registration (replace with your actual backend logic)
+            console.log('Registered with email:', email);
+            registrationMessage.textContent = "Thank you for registering!";
+            isSubscribed = true; // set to true
+            // Store the email in localStorage (optional)
+             localStorage.setItem('userEmail', email);
+
+            // Clear the form
+            registrationForm.reset();
+
+            // Hide the popup after a short delay
+            setTimeout(hidePopup, 2000);
+        });
+
+        function isValidEmail(email) {
+            // Basic email validation regex
+            const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+            return emailRegex.test(email);
+        }
+
+    </script>
+</body>
+</html>
