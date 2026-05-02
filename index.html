@@ -1,557 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Products Store</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        /* Updated Custom styles */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6; /* Lighter background */
-        }
-        .product-card {
-            background-color: white;
-            border-radius: 0.75rem; /* Rounded corners */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Shadow */
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transition */
-            border: 1px solid #e5e7eb; /* Add a border */
-        }
-        .product-card:hover {
-            transform: translateY(-0.5rem); /* Slight lift on hover */
-            box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15), 0 3px 5px -1px rgba(0, 0, 0, 0.1); /* Increased shadow on hover */
-        }
-        .product-card h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #1e293b; /* Darker heading */
-        }
-        .product-card p {
-            color: #4b5563; /* Slightly darker text */
-            margin-bottom: 1rem;
-            line-height: 1.75; /* Improved line height for readability */
-        }
-        .product-card .price {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #1d4ed8; /* Highlighted price */
-            margin-bottom: 1.5rem; /* Increased margin */
-            transition: color 0.3s ease; /* Smooth transition for price color */
-        }
-        .product-card:hover .price {
-            color: #2563eb; /* Slightly brighter on hover */
-        }
-        .btn {
-            font-family: 'Inter', sans-serif;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease-in-out, transform 0.1s ease;
-            border: none;
-            display: inline-flex; /* Use inline-flex for better alignment */
-            align-items: center;
-            justify-content: center;
-            width: 100%; /* Make button full width of card */
-        }
-        .btn-primary {
-            background-color: #4f46e5; /* Vibrant indigo */
-            color: white;
-        }
-        .btn-primary:hover {
-            background-color: #6366f1; /* Lighter indigo on hover */
-            transform: scale(1.05); /* Slight scale on hover */
-        }
-        .btn-secondary {
-            background-color: #e0f2fe; /* Light cyan */
-            color: #06b6d4; /* Darker cyan text */
-        }
-        .btn-secondary:hover {
-            background-color: #f0f9ff; /* Even lighter cyan on hover */
-            transform: scale(1.05);
-        }
-
-        .section {
-            padding-top: 5rem;
-            padding-bottom: 5rem;
-        }
-        .section-title {
-            font-size: 2.25rem;
-            font-weight: 700;
-            margin-bottom: 4rem;
-            color: #1e293b;
-            text-align: center;
-        }
-        .testimonial-card {
-            background-color: #fff;
-            border-radius: 0.75rem;
-            padding: 2rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            border: 1px solid #e5e7eb;
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            display: flex; /* Enable flexbox for vertical alignment */
-            flex-direction: column;
-            justify-content: space-between; /* Push content to the bottom */
-            align-items: flex-start;
-        }
-        .testimonial-card:hover {
-            transform: translateY(-0.25rem);
-            box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15), 0 3px 5px -1px rgba(0, 0, 0, 0.1);
-        }
-        .testimonial-card h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #10b981; /* Emerald */
-        }
-        .testimonial-card p {
-            color: #6b7280;
-            margin-bottom: 1rem;
-            line-height: 1.75;
-        }
-        .testimonial-card .author {
-            font-style: italic;
-            color: #9ca3af;
-        }
-        .cta-section {
-            text-align: center;
-        }
-        .cta-section h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: #1e293b;
-        }
-        .cta-section p {
-            font-size: 1.25rem;
-            color: #4b5563;
-            margin-bottom: 2rem;
-        }
-        .shop-now-btn {
-            background-color: #8b5cf6; /* Violet */
-            color: white;
-            padding: 1rem 2.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            font-size: 1.25rem;
-            transition: background-color 0.3s ease-in-out, transform 0.1s ease;
-            cursor: pointer;
-            border: none;
-        }
-        .shop-now-btn:hover {
-            background-color: #a855f7; /* Lighter violet on hover */
-            transform: scale(1.05);
-        }
-        .footer {
-            background-color: #1f2937;
-            color: #f9fafb;
-            padding: 1.5rem;
-            text-align: center;
-            border-top-left-radius: 0.75rem;
-            border-top-right-radius: 0.75rem;
-        }
-        .video-container {
-            /* Changed from video-placeholder to video-container */
-            margin-bottom: 2rem;
-            border-radius: 0.75rem;
-            overflow: hidden;  /* Clip the video content */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            position: relative; /* Needed for absolute positioning of controls */
-            width: 640px; /* Reduced width */
-            height: 360px; /* Reduced height, maintaining 16:9 aspect ratio */
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .video-container iframe {
-            /* Make the iframe fill the container */
-            width: 100%;
-            height: 100%;
-            display: block; /* Removes extra space below iframe */
-        }
-
-        .popular-badge {
-            /* New styles for the badge */
-            background-color: #f59e0b; /* Amber 500 */
-            color: #1e293b;
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem; /* More subtle rounding */
-            font-size: 0.875rem; /* Smaller font size */
-            font-weight: 600; /* Medium font weight */
-            margin-bottom: 0.75rem;
-            display: inline-block;
-            box-shadow: none; /* Removed shadow */
-            animation: none; /* Removed animation */
-            transform-origin: unset;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            transform: translateY(-50%);
-            text-align: center;
-            border-top-left-radius: 0.75rem;
-            border-top-right-radius: 0.75rem;
-        }
-
-        /* Modal styles */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1000; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgba(0,0,0,0.5); /* Black with opacity */
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            border-radius: 0.75rem;
-            padding: 2rem;
-            box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15), 0 3px 5px -1px rgba(0, 0, 0, 0.1);
-            width: 90%; /* Could be more or less, depending on screen size */
-            max-width: 400px; /* Maximum width */
-            position: relative; /* For close button positioning */
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .modal-header h2 {
-            margin: 0;
-            font-size: 1.5rem;
-            color: #1e293b;
-        }
-
-        .close-button {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            color: #cbd5e0;
-            font-size: 1.5rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.2s ease;
-            border: none;
-            background: transparent;
-            padding: 0;
-        }
-
-        .close-button:hover,
-        .close-button:focus {
-            color: #6b7280;
-            text-decoration: none;
-        }
-
-        .modal-body {
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-body p {
-            color: #4b5563;
-            margin-bottom: 1rem;
-        }
-
-        .modal-form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .modal-form label {
-            margin-bottom: 0.5rem;
-            color: #374151;
-            font-weight: 500;
-            font-size: 1rem;
-        }
-
-        .modal-form input {
-            padding: 0.75rem;
-            border-radius: 0.375rem;
-            border: 1px solid #d1d5db;
-            margin-bottom: 1rem;
-            font-size: 1rem;
-            transition: border-color 0.2s ease;
-        }
-
-        .modal-form input:focus {
-            outline: none;
-            border-color: #3b82f6; /* Blue 500 */
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15); /* Light blue shadow */
-        }
-
-        .modal-form button {
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease-in-out, transform 0.1s ease;
-            border: none;
-            background-color: #4f46e5; /* Indigo 600 */
-            color: white;
-            font-size: 1rem;
-        }
-
-        .modal-form button:hover {
-            background-color: #6366f1; /* Indigo 500 */
-            transform: scale(1.05);
-        }
-        .modal-footer{
-          text-align: right;
-        }
-
-        .testimonial-card .profile-picture {
-            width: 5rem; /* Adjust as needed */
-            height: 5rem;
-            border-radius: 50%;
-            margin-right: 1rem;
-            margin-bottom: 0;
-            object-fit: cover;
-        }
-
-        .testimonial-card-header{
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            width: 100%;
-        }
-        .testimonial-card-header h3{
-          margin-bottom: 0;
-        }
-
-        .customer-testimonials-container {
-            display: flex;
-            overflow-x: hidden; /* Changed to hidden */
-            padding-bottom: 20px;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            position: relative;
-            align-items: center;
-            scroll-behavior: smooth; /* Add smooth scrolling */
-        }
-
-        .customer-testimonials-container .testimonial-card {
-            flex: 0 0 auto;
-            width: calc(50% - 4rem);
-            margin-right: 1rem;
-            scroll-snap-align: start;
-            box-sizing: border-box;
-        }
-
-        .customer-testimonials-container .testimonial-card:last-child {
-            margin-right: 0;
-        }
-
-        @media (max-width: 768px) {
-            .customer-testimonials-container .testimonial-card {
-                width: 90%;
-            }
-        }
-
-        .nav-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(255, 255, 255, 0.7);
-            border-radius: 50%;
-            width: 2.5rem;
-            height: 2.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 1.5rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.2s ease;
-            z-index: 10;
-            border: none;
-        }
-
-        .nav-arrow:hover {
-            background-color: rgba(255, 255, 255, 0.9);
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .nav-left {
-            left: 0;
-            margin-left: -3rem;
-        }
-
-        .nav-right {
-            right: 0;
-            margin-right: -3rem;
-        }
-
-        .customer-testimonials-wrapper{
-            display: flex;
-            align-items: center;
-            position: relative;
-            padding-left: 3rem;
-            padding-right: 3rem;
-        }
-        .customer-testimonials-container{
-            margin-left: 0;
-            margin-right: 0;
-            overflow: hidden;
-            scroll-behavior: smooth;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alex Rivera — Software Engineer</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="bg-gray-100">
-    <section class="section bg-gray-100">
-        <div class="container mx-auto text-center">
-            <div class="video-container">
-                <iframe
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                    title="Rick Astley - Never Gonna Give You Up (Official Music Video)"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen>
-                </iframe>
-            </div>
-            <h2 class="section-title">Our Products</h2>
-            <div class="flex flex-col md:flex-row justify-center gap-6 mb-8">
-                <div class="product-card">
-                    <h3 class="text-xl font-semibold mb-2 text-blue-600">E-book: Mastering Productivity</h3>
-                    <p class="text-gray-700 mb-4">Learn the secrets to supercharge your productivity and achieve your goals faster.</p>
-                    <p class="price">$19.99</p>
-                    <button class="btn btn-primary buy-btn">Buy Now</button>
-                </div>
-                <div class="product-card relative">
-                    <div class="popular-badge">Most Popular</div>
-                    <h3 class="text-xl font-semibold mb-2 text-blue-600">Online Course: Digital Marketing 101</h3>
-                    <p class="text-gray-700 mb-4">Master the fundamentals of digital marketing and grow your online presence.</p>
-                    <p class="price">$49.99</p>
-                    <button class="btn btn-primary buy-btn">Buy Now</button>
-                </div>
-                <div class="product-card">
-                    <h3 class="text-xl font-semibold mb-2 text-blue-600">Software License: Photo Editor Pro</h3>
-                    <p class="text-gray-700 mb-4">Unlock advanced photo editing features with our powerful software.</p>
-                    <p class="price">$149.99</p>
-                    <button class="btn btn-primary buy-btn">Buy Now</button>
-                </div>
-            </div>
+<body>
+
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-inner">
+
+        <div class="profile">
+          <div class="avatar">AR</div>
+          <h1>Alex Rivera</h1>
+          <p class="title">Software Engineer</p>
         </div>
-    </section>
 
-    <section class="section bg-gray-100">
-        <div class="container mx-auto text-center">
-            <h2 class="section-title">What Our Customers Say</h2>
-            <div class="customer-testimonials-wrapper">
-                <button class="nav-arrow nav-left" id="prev-button">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="customer-testimonials-container" id="testimonials-container">
-                    <div class="testimonial-card">
-                        <div class="testimonial-card-header">
-                            <img src="https://placehold.co/50x50/EEE/31343C" alt="Profile" class="profile-picture">
-                            <h3 class="text-lg font-semibold mb-2 text-green-600">John Doe</h3>
-                        </div>
-                        <p class="text-gray-700 mb-4">"The e-book was incredibly helpful! I've seen a significant improvement in my productivity."</p>
-                        <p class="author">- Happy Customer</p>
-                    </div>
-                    <div class="testimonial-card">
-                         <div class="testimonial-card-header">
-                            <img src="https://placehold.co/50x50/EEE/31343C" alt="Profile" class="profile-picture">
-                            <h3 class="text-lg font-semibold mb-2 text-green-600">Jane Smith</h3>
-                        </div>
-                        <p class="text-gray-700 mb-4">"The online course was fantastic. The instructor was knowledgeable and engaging."</p>
-                        <p class="author">- Satisfied Learner</p>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="testimonial-card-header">
-                            <img src="https://placehold.co/50x50/EEE/31343C" alt="Profile" class="profile-picture">
-                            <h3 class="text-lg font-semibold mb-2 text-green-600">Mike Johnson</h3>
-                         </div>
-                        <p class="text-gray-700 mb-4">"Photo Editor Pro has transformed my workflow.  It's intuitive and powerful."</p>
-                        <p class="author">- Professional Photographer</p>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="testimonial-card-header">
-                            <img src="https://placehold.co/50x50/EEE/31343C" alt="Profile" class="profile-picture">
-                            <h3 class="text-lg font-semibold mb-2 text-green-600">Sarah Williams</h3>
-                        </div>
-                        <p class="text-gray-700 mb-4">"I highly recommend the digital marketing course.  My business has seen significant growth."</p>
-                        <p class="author">- Small Business Owner</p>
-                    </div>
-                </div>
-                <button class="nav-arrow nav-right" id="next-button">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
+        <p class="bio">
+          I build backend systems and developer tools. Eight years mostly in Go and Python, with enough React to be dangerous. Currently at Stripe working on payments infrastructure.
+        </p>
+
+        <div class="status">
+          <span class="dot"></span> Open to new roles
         </div>
-    </section>
 
-    <section class="section cta-section bg-gray-100">
-        <div class="container mx-auto">
-            <h2>Ready to Get Started?</h2>
-            <p>Explore our products and take the next step towards achieving your goals.</p>
-            <button class="shop-now-btn">Shop Now</button>
+        <div class="contact-links">
+          <a href="mailto:alex.rivera@example.com">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+            alex.rivera@example.com
+          </a>
+          <a href="#">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            github.com/alexrivera
+          </a>
+          <a href="#">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            linkedin.com/in/alexrivera
+          </a>
+          <a href="#">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            San Francisco, CA
+          </a>
         </div>
-    </section>
 
-    <footer class="footer">
-        <p>© 2023 Digital Products Store. All rights reserved.</p>
-    </footer>
-
-    <div id="emailModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Get Exclusive Access!</h2>
-                <button id="closeModalBtn" class="close-button">×</button>
-            </div>
-            <div class="modal-body">
-                <p>Enter your email address to receive special offers and updates:</p>
-                <form id="emailForm" class="modal-form">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <p>Thank you!</p>
-            </div>
+        <div class="sidebar-section">
+          <h2>Stack</h2>
+          <div class="tag-cloud">
+            <span>Go</span><span>Python</span><span>Node.js</span>
+            <span>React</span><span>TypeScript</span><span>PostgreSQL</span>
+            <span>Redis</span><span>Kafka</span><span>Kubernetes</span>
+            <span>AWS</span><span>GCP</span><span>Terraform</span>
+            <span>GraphQL</span><span>Docker</span>
+          </div>
         </div>
-    </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+        <div class="sidebar-section">
+          <h2>Education</h2>
+          <div class="edu-item">
+            <strong>B.S. Computer Science</strong>
+            <span>UC Berkeley, 2017</span>
+          </div>
+          <div class="edu-item">
+            <strong>AWS Solutions Architect</strong>
+            <span>Professional, 2023</span>
+          </div>
+          <div class="edu-item">
+            <strong>CKA</strong>
+            <span>CNCF, 2022</span>
+          </div>
+        </div>
 
-        // Get the modal
-        const modal = document.getElementById("emailModal");
+      </div>
+    </aside>
 
-        // Get the button that opens the modal
-        const buyBtns = document.querySelectorAll(".buy-btn");
+    <!-- MAIN -->
+    <main class="main">
 
-        // Get the button that closes the modal
-        const closeModalBtn = document.getElementById("closeModalBtn");
+      <nav class="tab-nav">
+        <button class="tab-btn active" data-tab="experience">Experience</button>
+        <button class="tab-btn" data-tab="projects">Projects</button>
+        <button class="tab-btn" data-tab="contact">Contact</button>
+      </nav>
 
-        // Get the form
-        const emailForm = document.getElementById("emailForm");
+      <!-- EXPERIENCE -->
+      <div class="tab-panel active" id="tab-experience">
 
-        // Open the modal w
+        <div class="job">
+          <div class="job-meta">
+            <div>
+              <h3>Senior Software Engineer</h3>
+              <span class="company">Stripe</span>
+            </div>
+            <span class="date">2022 – Present</span>
+          </div>
+          <ul>
+            <li>Led a 4-person team to rewrite the payment reconciliation pipeline — cut nightly runtime from 6 hours to 40 minutes.</li>
+            <li>Built a distributed rate-limiting service in Go + Redis; handles 2M req/s at under 5ms p99.</li>
+            <li>Broke 14 monorepo services into independently deployed microservices, which tripled release cadence.</li>
+            <li>Mentored three junior engineers; all three were promoted within 18 months.</li>
+          </ul>
+          <div class="job-tags"><span>Go</span><span>Redis</span><span>Kubernetes</span><span>PostgreSQL</span></div>
+        </div>
+
+        <div class="job">
+          <div class="job-meta">
+            <div>
+              <h3>Software Engineer II</h3>
+              <span class="company">Airbnb</span>
+            </div>
+            <span class="date">2019 – 2022</span>
+          </div>
+          <ul>
+            <li>Built the host pricing recommendation engine (Python + BigQuery) — hosts using it earned 12% more on average.</li>
+            <li>Created a React component library that six product teams adopted, cutting UI build time by about 30%.</li>
+            <li>Sped up search API endpoints by 40% through query rewrites and smarter caching.</li>
+          </ul>
+          <div class="job-tags"><span>Python</span><span>React</span><span>BigQuery</span><span>GraphQL</span></div>
+        </div>
+
+        <div class="job">
+          <div class="job-meta">
+            <div>
+              <h3>Software Engineer</h3>
+              <span class="company">Twilio</span>
+            </div>
+            <span class="date">2017 – 2019</span>
+          </div>
+          <ul>
+            <li>Owned the SMS delivery tracking service — Kafka + Elasticsearch, 50M+ events per day.</li>
+            <li>Shipped public REST APIs now used by 10k+ integrations.</li>
+            <li>Raised test coverage across the team's services from 34% to 82%.</li>
+          </ul>
+          <div class="job-tags"><span>Node.js</span><span>Kafka</span><span>Elasticsearch</span><span>AWS</span></div>
+        </div>
+
+      </div>
+
+      <!-- PROJECTS -->
+      <div class="tab-panel" id="tab-projects">
+
+        <div class="project">
+          <div class="project-meta">
+            <h3>FlowSQL</h3>
+            <a href="#" class="gh-link" aria-label="GitHub">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              1.2k stars
+            </a>
+          </div>
+          <p>Type-safe SQL query builder for Go. Zero allocations at runtime — all query construction happens at compile time. Started as an internal tool at Stripe, open-sourced it when I realized the existing options had too many tradeoffs.</p>
+          <div class="job-tags"><span>Go</span><span>PostgreSQL</span></div>
+        </div>
+
+        <div class="project">
+          <div class="project-meta">
+            <h3>MetricsBoard</h3>
+            <a href="#" class="gh-link" aria-label="GitHub">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </a>
+          </div>
+          <p>Real-time DORA metrics dashboard — deployment frequency, lead time, change failure rate, MTTR. Built with Next.js and WebSockets. Mostly made it because I was tired of pulling these numbers manually every sprint review.</p>
+          <div class="job-tags"><span>Next.js</span><span>TypeScript</span><span>WebSockets</span></div>
+        </div>
+
+        <div class="project">
+          <div class="project-meta">
+            <h3>VaultKit</h3>
+            <a href="#" class="gh-link" aria-label="GitHub">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </a>
+          </div>
+          <p>CLI that keeps your local .env files in sync with AWS Secrets Manager or GCP Secret Manager. Single binary, no config files. Useful on teams where the .env gets updated frequently and someone always has a stale copy.</p>
+          <div class="job-tags"><span>Go</span><span>AWS</span><span>GCP</span></div>
+        </div>
+
+      </div>
+
+      <!-- CONTACT -->
+      <div class="tab-panel" id="tab-contact">
+        <p class="contact-intro">
+          Best way to reach me is email. I'm open to senior and staff engineer roles, and occasionally take on consulting work for early-stage teams.
+        </p>
+
+        <form class="contact-form" id="contact-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Jane Smith" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="jane@company.com" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="What are you working on?" required></textarea>
+          </div>
+          <button type="submit" class="btn-send">Send</button>
+          <p class="form-status" id="form-status"></p>
+        </form>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
